@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+dist/
+backend/.mongo-data/
+backend/ml/.venv/
+__pycache__/
+*.pyc
+*.log

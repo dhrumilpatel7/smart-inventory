@@ -1,0 +1,16 @@
+{
+  "name": "smart-inventory",
+  "private": true,
+  "description": "Smart Inventory & Demand Forecasting System (MongoDB + Express + React + Node.js + Python ML)",
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix frontend install && npm --prefix backend run ml:setup",
+    "db": "npm --prefix backend run db:start",
+    "import": "npm --prefix backend run import",
+    "import:reset": "npm --prefix backend run import:reset",
+    "verify": "npm --prefix backend run verify",
+    "backend": "npm --prefix backend start",
+    "frontend": "npm --prefix frontend run dev",
+    "forecast": "npm --prefix backend run forecast",
+    "test": "npm --prefix backend test"
+  }
+}

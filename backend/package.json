@@ -1,0 +1,37 @@
+{
+  "name": "smart-inventory-backend",
+  "version": "1.0.0",
+  "description": "Smart Inventory & Demand Forecasting System - REST API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:start": "node scripts/startLocalMongo.js",
+    "import": "node scripts/importData.js",
+    "import:reset": "node scripts/importData.js --reset",
+    "seed:admin": "node scripts/seedAdmin.js",
+    "verify": "node scripts/verifyDb.js",
+    "ml:setup": "python3 -m venv ml/.venv && ml/.venv/bin/pip install -r ml/requirements.txt",
+    "forecast": "node scripts/runForecast.js",
+    "test": "node tests/e2e.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "csv-parse": "^7.0.3",
+    "dotenv": "^18.0.5",
+    "express": "^4.22.3",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.24.4",
+    "morgan": "^1.12.1"
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^11.3.0"
+  }
+}
