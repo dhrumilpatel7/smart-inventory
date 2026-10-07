@@ -1,7 +1,5 @@
 # Smart Inventory & Demand Forecasting System
 
-A college DBMS + Machine Learning + Project-Based Learning (PBL) project.
-
 It is a complete web application that stores products, suppliers, sales and stock movements in **MongoDB**, forecasts the demand of every product with a **Python / scikit-learn** model, and turns the forecast into clear **reorder recommendations**.
 
 All data shown in the application comes from MongoDB (loaded from the four CSV datasets in `data/`) and from the Python ML pipeline. Nothing on the dashboard is hard-coded.
