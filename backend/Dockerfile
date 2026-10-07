@@ -1,7 +1,6 @@
-# Multi-runtime container: Node.js 20 + Python 3 for Scikit-Learn ML
 FROM node:20-slim
 
-# Install Python 3 and build tools for pandas / scikit-learn
+# Install Python
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-pip \
@@ -10,17 +9,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Install Node production dependencies
+# Install Node dependencies
 COPY package*.json ./
 RUN npm ci --omit=dev
 
-# Install Python ML requirements
+# Install Python ML dependencies
 COPY ml/requirements.txt ./ml/
-RUN pip3 install --no-cache-dir --break-system-packages -r ml/requirements.txt || pip3 install --no-cache-dir -r ml/requirements.txt
+RUN pip3 install --no-cache-dir --break-system-packages -r ml/requirements.txt
 
-# Copy source code and dataset files
+# Copy backend files
 COPY . .
-COPY ../data /data
 
 ENV PORT=5000
 ENV NODE_ENV=production
