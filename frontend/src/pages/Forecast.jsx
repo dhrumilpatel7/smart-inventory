@@ -152,7 +152,7 @@ export default function Forecast() {
       <div className="sdg-inline-tip" style={{ marginBottom: 16 }}>
         <IconGlobe />
         <span>
-          <strong>SDG 9.4 &amp; 12.3 AI-Driven Resource Efficiency:</strong> Machine learning forecasts demand chronologically across multiple models (Ridge, Random Forest, Linear Regression) to prevent overstocking and reduce waste.
+          <strong>SDG 9.4 &amp; 12.3 AI-Driven Resource Efficiency:</strong> Machine learning forecasts demand chronologically across multiple models (GradientBoosting, Random Forest, Linear Regression) to prevent overstocking and reduce waste.
         </span>
       </div>
 

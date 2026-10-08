@@ -34,7 +34,6 @@ export default function Sustainability() {
     safetyStock: true,
     batchOrders: true,
     supplierAudits: true,
-    perishableMonitoring: false,
     circularReturn: false,
   });
 
@@ -88,7 +87,7 @@ export default function Sustainability() {
     <div className="sustainability-page">
       <PageHeader
         title="Sustainability & SDG Impact Hub"
-        description="Aligning inventory demand forecasting with United Nations 2030 Sustainable Development Goals (SDGs 12, 9, 13, 2, 8)."
+        description="Aligning inventory demand forecasting with United Nations 2030 Sustainable Development Goals (SDGs 12, 9, 13, 8)."
       >
         <button type="button" className="btn btn-primary" onClick={handlePrintReport}>
           <IconDownload /> Export SDG Audit
@@ -115,7 +114,6 @@ export default function Sustainability() {
             <span className="sdg-tag sdg-12">SDG 12 · Responsible Consumption</span>
             <span className="sdg-tag sdg-9">SDG 9 · Innovation &amp; AI</span>
             <span className="sdg-tag sdg-13">SDG 13 · Climate Action</span>
-            <span className="sdg-tag sdg-2">SDG 2 · Zero Food Waste</span>
             <span className="sdg-tag sdg-8">SDG 8 · Resource Efficiency</span>
           </div>
         </div>
@@ -341,7 +339,7 @@ export default function Sustainability() {
                       <strong>DBMS &amp; ML Architecture Role:</strong>
                       <p>
                         MongoDB transactional isolation guarantees that stock movements are atomic, preventing discrepancy losses.
-                        The scikit-learn ML engine evaluates chronological training sets with Ridge, Random Forest, and Linear Regression
+                        The scikit-learn ML engine evaluates chronological training sets with GradientBoosting, Random Forest, and Linear Regression
                         to pick the lowest-error model dynamically.
                       </p>
                     </div>
@@ -415,18 +413,6 @@ export default function Sustainability() {
               <div className="checklist-text">
                 <strong>Supplier Traceability &amp; Lead Time Tracking</strong>
                 <span>Monitors vendor lead times in MongoDB to prevent sudden emergency stockouts (SDG 8.4).</span>
-              </div>
-            </label>
-
-            <label className={`checklist-item ${checklist.perishableMonitoring ? 'checked' : ''}`}>
-              <input
-                type="checkbox"
-                checked={checklist.perishableMonitoring}
-                onChange={() => toggleChecklist('perishableMonitoring')}
-              />
-              <div className="checklist-text">
-                <strong>Perishable &amp; Food Waste Accelerated Clearance</strong>
-                <span>Automates 7-day forecast alerts for perishables nearing shelf expiration (SDG 2.4).</span>
               </div>
             </label>
 

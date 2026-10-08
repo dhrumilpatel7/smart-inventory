@@ -36,16 +36,6 @@ export const SDG_GOALS = [
     contribution: 'Reorder batch consolidation combines purchase orders per supplier, cutting redundant freight shipments and diesel emissions.',
   },
   {
-    number: 2,
-    title: 'Zero Hunger & Food Loss Prevention',
-    tagline: 'Eliminating perishable spoilage across supply chains',
-    color: '#dda63a',
-    targets: [
-      { code: '2.4', text: 'Ensure sustainable food production systems and resilient agricultural logistics' },
-    ],
-    contribution: 'High-frequency 7-day forecasts and safety stock formulas safeguard perishable food items from expiration before sale.',
-  },
-  {
     number: 8,
     title: 'Decent Work & Economic Growth',
     tagline: 'Protecting capital resilience and resource efficiency',
