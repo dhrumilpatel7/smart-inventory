@@ -19,7 +19,7 @@ All data shown in the application comes from MongoDB (loaded from the four CSV d
 | Reorder | Transparent formula using forecast + safety stock − current stock, a written reason for every product, purchase orders |
 | Analytics | Sales trends, product/category performance, inventory movement, stock health, supplier relationships, model performance |
 | Dashboard | Live cards and charts (sales, demand history vs forecast, IN vs OUT, categories, low-stock table) |
-| SDG & Sustainability | UN 2030 Agenda integration (SDG 12, 9, 13, 2, 8): live eco-efficiency score, waste diverted metrics, interactive "What-If" simulator, operational compliance checklist, and exportable report |
+| SDG & Sustainability | UN 2030 Agenda integration (SDG 12, 9, 13, 8): live eco-efficiency score, waste diverted metrics, interactive "What-If" simulator, operational compliance checklist, and exportable report |
 | Theme & Interactive UI | Modern creative design system with Light and Dark mode toggle switch, system preference sync, theme-aware Recharts palettes, and glassmorphic micro-interactions |
 
 ## 2. Architecture
