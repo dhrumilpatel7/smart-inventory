@@ -4,6 +4,7 @@ import { Loading } from './components/ui';
 import { useAuth } from './context/AuthContext';
 import Analytics from './pages/Analytics';
 import Dashboard from './pages/Dashboard';
+import Assistant from './pages/Assistant';
 import Forecast from './pages/Forecast';
 import Inventory from './pages/Inventory';
 import Login from './pages/Login';
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="forecast" element={<Forecast />} />
         <Route path="reorder" element={<Reorder />} />
         <Route path="analytics" element={<Analytics />} />
+        <Route path="assistant" element={<Assistant />} />
         <Route path="sustainability" element={<Sustainability />} />
         <Route path="sdg" element={<Navigate to="/sustainability" replace />} />
         <Route path="*" element={<NotFound />} />

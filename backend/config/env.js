@@ -46,6 +46,10 @@ const env = {
     leadTimeDays: number('LEAD_TIME_DAYS', 7),
     safetyWindowDays: number('SAFETY_WINDOW_DAYS', 30),
   },
+  openai: {
+    apiKey: (process.env.OPENAI_API_KEY || '').trim(),
+    model: (process.env.OPENAI_MODEL || '').trim() || 'gpt-4.1-mini',
+  },
 };
 
 if (env.jwtSecret.length < 16 || env.jwtSecret.startsWith('change_me')) {

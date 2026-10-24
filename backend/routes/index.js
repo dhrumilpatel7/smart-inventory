@@ -28,6 +28,7 @@ router.use('/inventory-transactions', inventoryRoutes.transactions);
 router.use('/inventory', inventoryRoutes.inventory);
 router.use('/forecasts', require('./forecastRoutes'));
 router.get('/reorder', reorder);
+router.use('/assistant', require('./assistantRoutes'));
 router.use('/purchase-orders', require('./purchaseOrderRoutes'));
 
 module.exports = router;

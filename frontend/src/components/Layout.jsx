@@ -12,6 +12,7 @@ import {
   IconLogout,
   IconMenu,
   IconReceipt,
+  IconSparkles,
   IconSwap,
   IconTrend,
   IconTruck,
@@ -36,6 +37,7 @@ const NAV = [
       { to: '/forecast', text: 'Forecast', icon: IconTrend },
       { to: '/reorder', text: 'Reorder', icon: IconCart },
       { to: '/analytics', text: 'Analytics', icon: IconChart },
+      { to: '/assistant', text: 'AI Copilot', icon: IconSparkles },
     ],
   },
   {

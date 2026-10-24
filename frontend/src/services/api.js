@@ -104,4 +104,9 @@ export const reorderApi = {
   setOrderStatus: (id, status) => api.patch(`/purchase-orders/${id}/status`, { status }).then((r) => r.data),
 };
 
+export const assistantApi = {
+  status: () => get('/assistant/status'),
+  chat: (body) => api.post('/assistant/chat', body, { timeout: 60000 }).then((r) => r.data),
+};
+
 export default api;
