@@ -19,6 +19,7 @@ import {
 } from './Icons';
 import SdgImpactModal from './SdgImpactModal';
 import ThemeToggle from './ThemeToggle';
+import OfflineAssistant from './OfflineAssistant';
 
 const NAV = [
   { label: 'Overview', items: [{ to: '/', text: 'Dashboard', icon: IconDashboard, end: true }] },
@@ -141,6 +142,7 @@ export default function Layout() {
       </div>
 
       {sdgOpen && <SdgImpactModal onClose={() => setSdgOpen(false)} />}
+      <OfflineAssistant />
     </div>
   );
 }

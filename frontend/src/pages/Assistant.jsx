@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { assistantApi, errorMessage } from '../services/api';
 import { IconRefresh, IconSparkles } from '../components/Icons';
+import AssistantMessage from '../components/AssistantMessage';
 
 const STARTER_PROMPTS = [
   'Which products need attention right now?',
@@ -114,7 +115,7 @@ export default function Assistant() {
                   {message.role === 'assistant' && <div className="assistant-message-avatar"><IconSparkles /></div>}
                   <div className="assistant-message-content">
                     <span className="assistant-message-label">{message.role === 'user' ? 'You' : 'Inventory Copilot'}</span>
-                    <div className="assistant-message-bubble">{message.content}</div>
+                    <div className="assistant-message-bubble"><AssistantMessage content={message.content} /></div>
                   </div>
                 </div>
               ))}
