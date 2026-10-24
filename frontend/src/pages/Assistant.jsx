@@ -16,6 +16,7 @@ export default function Assistant() {
   const [busy, setBusy] = useState(false);
   const [configured, setConfigured] = useState(null);
   const [error, setError] = useState('');
+  const [failedMessage, setFailedMessage] = useState('');
   const endRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -29,12 +30,15 @@ export default function Assistant() {
     endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [messages, busy]);
 
-  async function send(text = draft) {
+  async function send(text = draft, { retry = false } = {}) {
     const content = text.trim();
     if (!content || busy) return;
-    const previous = messages;
-    setMessages((current) => [...current, { role: 'user', content }]);
-    setDraft('');
+    const previous = retry ? messages.slice(0, -1) : messages;
+    if (!retry) {
+      setMessages((current) => [...current, { role: 'user', content }]);
+      setDraft('');
+      setFailedMessage('');
+    }
     setError('');
     setBusy(true);
     try {
@@ -43,8 +47,10 @@ export default function Assistant() {
         history: previous.slice(-8).map(({ role, content: messageContent }) => ({ role, content: messageContent })),
       });
       setMessages((current) => [...current, { role: 'assistant', content: result.answer }]);
+      setFailedMessage('');
     } catch (err) {
       setError(errorMessage(err, 'The Inventory Copilot could not answer. Please try again.'));
+      setFailedMessage(content);
     } finally {
       setBusy(false);
       inputRef.current?.focus();
@@ -55,6 +61,7 @@ export default function Assistant() {
     setMessages([]);
     setDraft('');
     setError('');
+    setFailedMessage('');
     inputRef.current?.focus();
   }
 
@@ -134,7 +141,7 @@ export default function Assistant() {
         </div>
 
         <div className="assistant-composer-wrap">
-          {error && <div className="alert error assistant-error" role="alert">{error}</div>}
+          {error && <div className="alert error assistant-error" role="alert"><span>{error}</span>{failedMessage && <button type="button" className="assistant-retry" onClick={() => send(failedMessage, { retry: true })} disabled={busy}>Try again</button>}</div>}
           <form className="assistant-composer" onSubmit={(event) => { event.preventDefault(); send(); }}>
             <textarea
               ref={inputRef}

@@ -8,6 +8,10 @@ const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
 
+// Render terminates TLS and forwards requests through a trusted proxy.
+// This lets express-rate-limit use the real client IP from X-Forwarded-For.
+app.set('trust proxy', 1);
+
 app.use(helmet());
 // Only the configured frontend origin(s) may call the API from a browser.
 app.use(

@@ -122,9 +122,11 @@ async function reply({ message, history }) {
     response = await upstream.json();
     if (!upstream.ok) {
       const status = upstream.status;
-      if (status === 400 || status === 401 || status === 403) throw new ApiError(502, 'Google Gemini rejected the API key or model. Check GEMINI_API_KEY and GEMINI_MODEL in the backend environment.');
-      if (status === 429) throw new ApiError(503, 'The Gemini free-tier limit has been reached or the service is busy. Please try again later.');
-      throw new ApiError(502, 'The AI service could not answer right now. Please try again shortly.');
+      if (status === 400 || status === 401 || status === 403) throw new ApiError(502, 'Gemini rejected this request. Check the backend API key and model settings, then try again.');
+      if (status === 404) throw new ApiError(502, 'The configured Gemini model is unavailable. Check GEMINI_MODEL in the backend environment.');
+      if (status === 429) throw new ApiError(503, 'Gemini is temporarily rate-limited or its free-tier quota is exhausted. Wait a little, then try again.');
+      if (status >= 500) throw new ApiError(503, 'Google Gemini is temporarily unavailable. Please try again shortly.');
+      throw new ApiError(502, 'Gemini could not process this request. Please try again.');
     }
   } catch (err) {
     if (err instanceof ApiError) throw err;
