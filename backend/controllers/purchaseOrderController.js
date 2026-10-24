@@ -7,7 +7,6 @@ const { pagination, positiveInt, requireString, toDateString } = require('../uti
 const { nextId } = require('../utils/idGenerator');
 const { runInTransaction } = require('../utils/transaction');
 const { increaseStock, createTransactionRecord } = require('../services/stockService');
-const n8nAlertService = require('../services/n8nAlertService');
 
 const { PO_STATUSES } = PurchaseOrder;
 // Allowed status changes. RECEIVED and CANCELLED are final.
@@ -77,7 +76,6 @@ exports.create = asyncHandler(async (req, res) => {
     quantity,
     note: typeof body.note === 'string' ? body.note : undefined,
   });
-  n8nAlertService.checkInBackground();
   const [data] = await present([order.toObject()]);
   res.status(201).json({ message: `Purchase order ${order.orderId} created`, data });
 });
@@ -119,7 +117,6 @@ exports.updateStatus = asyncHandler(async (req, res) => {
     }
     return { updated, product, transaction };
   });
-  n8nAlertService.checkInBackground();
 
   const [data] = await present([result.updated]);
   res.json({

@@ -3,7 +3,6 @@ const app = require('./app');
 const { connectDB, disconnectDB, supportsTransactions } = require('./config/db');
 const { syncCounters } = require('./utils/idGenerator');
 const { ensureAdminUser } = require('./services/authService');
-const n8nAlertService = require('./services/n8nAlertService');
 
 async function start() {
   try {
@@ -18,7 +17,6 @@ async function start() {
     await syncCounters();
     const admin = await ensureAdminUser();
     if (admin.created) console.log(`Admin user created: ${admin.email}`);
-    await n8nAlertService.initializeBaseline();
   } catch (err) {
     console.error(`Could not start: ${err.message}`);
     console.error('Is MongoDB running? Start it with "npm run db:start" (in the backend folder) or check MONGODB_URI in backend/.env.');

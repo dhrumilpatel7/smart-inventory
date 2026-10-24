@@ -5,7 +5,6 @@ const asyncHandler = require('../utils/asyncHandler');
 const { pagination, sortSpec, dateRange, parseDate, positiveInt, requireString, toDateString } = require('../utils/validators');
 const { recordMovement } = require('../services/stockService');
 const analytics = require('../services/analyticsService');
-const n8nAlertService = require('../services/n8nAlertService');
 
 const SORTABLE = ['transactionId', 'productId', 'type', 'quantity', 'date'];
 const { TRANSACTION_TYPES } = InventoryTransaction;
@@ -71,7 +70,6 @@ exports.create = asyncHandler(async (req, res) => {
   if (date.getTime() > today.getTime() + 24 * 60 * 60 * 1000) throw ApiError.badRequest('date cannot be in the future');
 
   const { transaction, product } = await recordMovement({ productId, type, quantity, date });
-  n8nAlertService.checkInBackground();
   res.status(201).json({
     message: `Stock ${type === 'IN' ? 'added' : 'removed'}. Stock of ${product.name} is now ${product.stock}.`,
     data: present(transaction, new Map([[product.productId, product.name]])),

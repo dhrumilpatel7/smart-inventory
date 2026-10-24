@@ -8,7 +8,6 @@ const asyncHandler = require('../utils/asyncHandler');
 const { pagination, sortSpec, escapeRegex, pick } = require('../utils/validators');
 const { nextId } = require('../utils/idGenerator');
 const { stockStatus } = require('../services/analyticsService');
-const n8nAlertService = require('../services/n8nAlertService');
 
 const SORTABLE = ['productId', 'name', 'category', 'price', 'stock', 'minimumStock', 'supplierId'];
 const normalizeId = (id) => String(id || '').trim().toUpperCase();
@@ -91,7 +90,6 @@ exports.create = asyncHandler(async (req, res) => {
     body.productId = await nextId('product');
   }
   const created = await Product.create(body);
-  n8nAlertService.checkInBackground();
   const product = await Product.findById(created._id).populate('supplier', 'supplierId name').lean();
   res.status(201).json({ data: present(product) });
 });
@@ -117,7 +115,6 @@ exports.update = asyncHandler(async (req, res) => {
   }
   product.set(body);
   await product.save();
-  n8nAlertService.checkInBackground();
   const updated = await Product.findById(product._id).populate('supplier', 'supplierId name').lean();
   res.json({ data: present(updated) });
 });
