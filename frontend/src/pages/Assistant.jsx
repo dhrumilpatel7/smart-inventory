@@ -76,7 +76,7 @@ export default function Assistant() {
       {configured === false && (
         <div className="alert warn assistant-setup" role="status">
           <div>
-            <strong>AI setup is required.</strong> Add your OpenAI API key as <code>OPENAI_API_KEY</code> in <code>backend/.env</code>, then restart the backend.
+          <strong>AI setup is required.</strong> Add your Google AI Studio key as <code>GEMINI_API_KEY</code> to the backend environment, then redeploy the backend.
           </div>
         </div>
       )}
@@ -163,7 +163,7 @@ export default function Assistant() {
       </section>
 
       <p className="assistant-privacy-note">
-        Each message is sent to OpenAI with recent chat turns and a limited live snapshot of inventory, sales, forecasts, and reorder data. Supplier contact details are excluded. The app does not save this conversation; it clears when you refresh or close this page.
+        Each message is sent to Google Gemini with recent chat turns and a limited live snapshot of inventory, sales, forecasts, and reorder data. Supplier contact details are excluded. Under Google’s free tier, submitted content may be used to improve Google products. The app does not save this conversation; it clears when you refresh or close this page.
       </p>
     </div>
   );

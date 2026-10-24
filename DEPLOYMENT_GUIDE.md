@@ -79,6 +79,8 @@ Follow this step-by-step guide to keep your website online 24/7 without needing 
    - `CORS_ORIGIN`: `*`
    - `ADMIN_EMAIL`: `admin@smartinventory.local`
    - `ADMIN_PASSWORD`: `AdminPassword123!`
+   - `GEMINI_API_KEY`: *(your Google AI Studio API key from a Free Tier project; do not link billing if you need to keep usage at $0)*
+   - `GEMINI_MODEL`: `gemini-3.5-flash-lite`
 6. Click **Create Web Service**.
 7. Once deployed, Render will provide your public backend URL, for example:
    ```

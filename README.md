@@ -18,7 +18,7 @@ All data shown in the application comes from MongoDB (loaded from the four CSV d
 | Forecast | Python ML pipeline: 3 models compared, chronological split, MAE / RMSE / MAPE, 7-day and 30-day forecasts per product |
 | Reorder | Transparent formula using forecast + safety stock − current stock, a written reason for every product, purchase orders |
 | Analytics | Sales trends, product/category performance, inventory movement, stock health, supplier relationships, model performance |
-| AI Copilot | Authenticated chat that explains live stock, sales, forecast, and reorder data using the OpenAI API |
+| AI Copilot | Authenticated chat that explains live stock, sales, forecast, and reorder data using the Gemini API |
 | Dashboard | Live cards and charts (sales, demand history vs forecast, IN vs OUT, categories, low-stock table) |
 | SDG & Sustainability | UN 2030 Agenda integration (SDG 12, 9, 13, 8): live eco-efficiency score, waste diverted metrics, interactive "What-If" simulator, operational compliance checklist, and exportable report |
 | Theme & Interactive UI | Modern creative design system with Light and Dark mode toggle switch, system preference sync, theme-aware Recharts palettes, and glassmorphic micro-interactions |
@@ -52,7 +52,7 @@ All data shown in the application comes from MongoDB (loaded from the four CSV d
 ```
 
 React never talks to MongoDB or Python directly. It only calls the Express API.
-The optional Inventory AI Copilot also calls OpenAI from the backend; its API key is never sent to the browser.
+The optional Inventory AI Copilot calls Google Gemini from the backend; its API key is never sent to the browser.
 
 ## 3. Technologies
 
@@ -133,8 +133,8 @@ ml\.venv\Scripts\pip install -r ml\requirements.txt
 | `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` | The administrator account created by the seed/import | choose your own password (8+ characters) |
 | `PYTHON_PATH` | Python executable; leave empty to auto-detect `ml/.venv` | |
 | `ML_TIMEOUT_MS` | Maximum time allowed for a forecast run | `180000` |
-| `OPENAI_API_KEY` | Optional key for the Inventory AI Copilot; stored only in `backend/.env` | leave blank to disable AI chat |
-| `OPENAI_MODEL` | OpenAI model used by the Copilot | `gpt-4.1-mini` |
+| `GEMINI_API_KEY` | Optional Google AI Studio key for the Inventory AI Copilot; stored only in backend environment | leave blank to disable AI chat |
+| `GEMINI_MODEL` | Gemini model used by the Copilot | `gemini-3.5-flash-lite` |
 | `SAFETY_Z`, `LEAD_TIME_DAYS`, `SAFETY_WINDOW_DAYS` | Reorder settings (see PROJECT_DOCUMENTATION.md §20) | `1.65`, `7`, `30` |
 
 Generate a secret:
@@ -144,7 +144,7 @@ node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
 ```
 
 Secrets live only in `backend/.env`, which is ignored by git. Nothing secret is sent to React.
-To enable the Inventory AI Copilot, add your OpenAI API key to `OPENAI_API_KEY` in `backend/.env` and restart the backend. Keep the key private and do not commit `.env`.
+To enable the Inventory AI Copilot, create a Gemini API key in Google AI Studio and add it as `GEMINI_API_KEY` in `backend/.env` or your hosting provider's backend environment variables. The configured model uses Google's free tier, subject to account eligibility and rate limits. Free-tier prompts may be used by Google to improve products. Keep the key private and do not commit `.env`.
 
 ## 8. MongoDB setup
 
@@ -240,7 +240,7 @@ All routes are under `/api`. Everything except `/health`, `/auth/login` and `/au
 | `GET /inventory-transactions` `?productId=&type=IN\|OUT&from=&to=`, `GET /inventory-transactions/:id` | Transaction history |
 | `POST /inventory-transactions` `{ productId, type, quantity, date? }` | Manual stock movement (updates stock) |
 | `GET /inventory/analytics` | Inventory aggregations |
-| `GET /assistant/status`, `POST /assistant/chat` | Authenticated AI Copilot status and chat; requires `OPENAI_API_KEY` |
+| `GET /assistant/status`, `POST /assistant/chat` | Authenticated AI Copilot status and chat; requires `GEMINI_API_KEY` |
 | `POST /forecasts/run` | Run the Python ML pipeline and store the forecasts |
 | `GET /forecasts` `?productId=&horizon=7\|30`, `GET /forecasts/product/:productId`, `/forecasts/summary`, `/forecasts/status`, `/forecasts/runs` | Read forecasts and metrics |
 | `GET /reorder` `?horizon=7\|30` | Reorder recommendations |
@@ -258,7 +258,7 @@ Status codes used: `200`, `201`, `400` (invalid input), `401` (not logged in), `
 | Login says "Invalid email or password" | Use `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `backend/.env`. If you changed them after the first import, run `npm run seed:admin` (it creates the user only if that email does not exist yet). |
 | Forecast button: "Python packages are missing" | Run `npm run ml:setup` in `backend/`. |
 | Forecast button: "Python could not be started" | Set `PYTHON_PATH` in `.env` to your Python executable. |
-| AI Copilot says it is not configured | Add `OPENAI_API_KEY` to `backend/.env`, then restart the backend. |
+| AI Copilot says it is not configured | Add `GEMINI_API_KEY` to the backend environment, then restart or redeploy the backend. |
 | Frontend: "Cannot reach the server" | Start the backend; check that it runs on the port in `frontend/.env` → `VITE_API_PROXY` (default `http://localhost:5000`). |
 | Warning: "not a replica set" | The app works, but without real transactions. Use `npm run db:start` or Atlas. |
 | Port already in use | Change `PORT` in `backend/.env` (and `VITE_API_PROXY` to match). |
