@@ -1,10 +1,12 @@
 const asyncHandler = require('../utils/asyncHandler');
 const forecastService = require('../services/forecastService');
 const reorderService = require('../services/reorderService');
+const n8nAlertService = require('../services/n8nAlertService');
 
 // POST /api/forecasts/run  - React -> Node -> Python -> Node -> React
 exports.run = asyncHandler(async (req, res) => {
   const result = await forecastService.runForecast({ triggeredBy: req.user.email });
+  n8nAlertService.checkInBackground();
   res.status(201).json({ message: `Forecast generated with ${result.run.model}.`, ...result });
 });
 

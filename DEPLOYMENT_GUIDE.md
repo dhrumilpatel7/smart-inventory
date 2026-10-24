@@ -117,3 +117,7 @@ Follow this step-by-step guide to keep your website online 24/7 without needing 
 - Your website is now live on the internet **24 hours a day, 7 days a week**.
 - You can turn off your laptop, share the URL with your professors, teammates, or friends, and view it from any phone or computer!
 - Any future `git push` to GitHub will automatically trigger redeployments on both Vercel and Render!
+
+# High-priority reorder email alerts
+
+To connect email alerts through n8n, follow [docs/N8N_REORDER_ALERTS.md](docs/N8N_REORDER_ALERTS.md). The integration is disabled until `N8N_REORDER_WEBHOOK_URL` and `N8N_REORDER_WEBHOOK_SECRET` are configured in the backend environment.

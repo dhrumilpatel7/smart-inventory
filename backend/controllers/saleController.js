@@ -5,6 +5,7 @@ const asyncHandler = require('../utils/asyncHandler');
 const { pagination, sortSpec, dateRange, parseDate, positiveInt, requireString, toDateString } = require('../utils/validators');
 const { recordSale } = require('../services/stockService');
 const analytics = require('../services/analyticsService');
+const n8nAlertService = require('../services/n8nAlertService');
 
 const SORTABLE = ['saleId', 'productId', 'quantity', 'totalAmount', 'saleDate'];
 
@@ -71,6 +72,7 @@ exports.create = asyncHandler(async (req, res) => {
   }
 
   const { sale, transaction, product } = await recordSale({ productId, quantity, saleDate });
+  n8nAlertService.checkInBackground();
   res.status(201).json({
     message: `Sale recorded. Stock of ${product.name} is now ${product.stock}.`,
     data: {
